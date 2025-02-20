@@ -1,0 +1,16 @@
+name: 🌟 屏蔽 WebRTC/AppRTC 流量 🌟
+desc: |-
+  本规则用于拦截与 WebRTC 及 AppRTC 相关的网络通信，
+  主要匹配包含 'stun'、'turn'、'webrtc'、'apprtc' 等关键词的请求，
+  以及常见的 WebRTC/STUN/TURN 使用的端口（如 4483、8082、9305，
+  以及 UDP 协议下的 3478、3479、3480、3481、5349、19302、19305）。
+  防止通过 WebRTC 技术实现的 P2P 连接和潜在的本地 IP 泄露风险。
+category: Network
+icon: https://cdn.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Magic.png
+#>------
+
+rules:
+  - SCRIPT,webrtc,REJECT,no-track
+script:
+  shortcuts:
+    webrtc: ('stun' in host or 'turn' in host or 'webrtc' in host or 'apprtc' in host) or dst_port in [4483, 8082, 9305] or (network == 'udp' and dst_port in [3478, 3479, 3480, 3481, 5349, 19302, 19305])
