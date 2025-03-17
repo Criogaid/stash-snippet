@@ -11,4 +11,4 @@ rules:
   - SCRIPT,webrtc,REJECT,no-track
 script:
   shortcuts:
-    webrtc: ('stun' in host or 'turn' in host or 'webrtc' in host or 'apprtc' in host) or dst_port in [4483, 8082, 9305] or (network == 'udp' and dst_port in [3478, 3479, 3480, 3481, 5349, 19302, 19305])
+    webrtc: network == 'udp' and ('stun' in host or 'turn' in host or 'webrtc' in host or 'apprtc' in host or dst_port in [3478, 3479, 3480, 3481, 5349, 19302, 19305,4483, 8082, 9305])
